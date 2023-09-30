@@ -13,7 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProviderStore providerStore = Provider.of<ProviderStore>(context);
+    ProviderStore providerStore =
+        Provider.of<ProviderStore>(context, listen: false);
     return Scaffold(
       body: Consumer<ProviderStore>(
         builder: (context, providerStore, child) {

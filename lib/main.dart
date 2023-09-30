@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  //await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
       providers: [

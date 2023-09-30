@@ -1,6 +1,7 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:fitshare/Models/home_page_model.dart';
 import 'package:fitshare/Pages/home_page.dart';
 import 'package:fitshare/Pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,7 +79,6 @@ class UserController {
         "user_type": userType
       });
       if (response.statusCode == 200) {
-        print(response.data);
         Navigator.push(
           context,
           CupertinoPageRoute(
@@ -86,8 +86,15 @@ class UserController {
           ),
         );
       } else {}
-    } catch (e) {
-      print(e);
+    } catch (e) {}
+  }
+
+  Future<HomePageModel> handleHomePage(String userName, context) async {
+    var response = await http.get(Uri.parse("$url/user/$userName/homepage"));
+    if (response.statusCode == 200) {
+      return homePageModelFromJson(response.body);
+    } else {
+      throw Exception('Failed to load data');
     }
   }
 

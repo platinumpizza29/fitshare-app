@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:fitshare/Models/home_page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -10,7 +11,7 @@ class ProviderStore with ChangeNotifier {
   int _currentIndexBottomNav = 0;
   List _myWorkouts = [];
   int _stepperIndex = 0;
-  String _greeting = "Good Evening!";
+  String _greeting = "Good Afternoon!";
   late Map<String, dynamic> _userDetails;
 
   bool get isDarkMode => _isDarkMode;
