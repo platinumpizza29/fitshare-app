@@ -17,8 +17,10 @@ class DiscoverPeopleComp extends StatelessWidget {
           height: 90,
           width: double.infinity,
           child: FutureBuilder(
-            future: UserController()
-                .handleHomePage(providerStore.userDetails['username'], context),
+            future: UserController().handleHomePage(
+              providerStore.userDetails.userDetails.username,
+              context,
+            ),
             builder: (context, snapshot) {
               if (snapshot.data == null) {
                 return Center(

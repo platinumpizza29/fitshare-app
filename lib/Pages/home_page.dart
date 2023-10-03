@@ -13,12 +13,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProviderStore providerStore =
-        Provider.of<ProviderStore>(context, listen: false);
-    return Scaffold(
-      body: Consumer<ProviderStore>(
-        builder: (context, providerStore, child) {
-          return <Widget>[
+    return Consumer<ProviderStore>(
+      builder: (context, providerStore, child) {
+        return Scaffold(
+          body: <Widget>[
             HomeComp(),
             WorkoutComp(),
             Container(
@@ -31,33 +29,33 @@ class HomePage extends StatelessWidget {
               alignment: Alignment.center,
               child: const Text('Page 3'),
             ),
-          ][providerStore.currentIndexBottomNav];
-        },
-      ),
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: providerStore.currentIndexBottomNav,
-        onTap: (value) {
-          providerStore.handleNavChange(value);
-        },
-        items: [
-          SalomonBottomBarItem(
-            icon: Icon(Ionicons.home),
-            title: Text("Home"),
+          ][providerStore.currentIndexBottomNav],
+          bottomNavigationBar: SalomonBottomBar(
+            currentIndex: providerStore.currentIndexBottomNav,
+            onTap: (value) {
+              providerStore.handleNavChange(value);
+            },
+            items: [
+              SalomonBottomBarItem(
+                icon: Icon(Ionicons.home),
+                title: Text("Home"),
+              ),
+              SalomonBottomBarItem(
+                icon: Icon(Ionicons.barbell),
+                title: Text("Workout"),
+              ),
+              SalomonBottomBarItem(
+                icon: Icon(Ionicons.add_circle_outline),
+                title: Text("New Reel"),
+              ),
+              SalomonBottomBarItem(
+                icon: Icon(Ionicons.fast_food_outline),
+                title: Text("Diet"),
+              ),
+            ],
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Ionicons.barbell),
-            title: Text("Workout"),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Ionicons.add_circle_outline),
-            title: Text("New Reel"),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Ionicons.fast_food_outline),
-            title: Text("Diet"),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

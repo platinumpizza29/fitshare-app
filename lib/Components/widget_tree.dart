@@ -36,7 +36,7 @@ class WidgetTree extends StatelessWidget {
     } else {
       ProviderStore providerStore =
           Provider.of<ProviderStore>(context, listen: false);
-      providerStore.handleUserDetails();
+      providerStore.handleUserDetailsfromStorage();
       return const HomePage();
     }
   }

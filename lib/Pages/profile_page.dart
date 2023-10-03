@@ -42,7 +42,7 @@ class ProfilePage extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 60,
                     child: Text(
-                      providerStore.userDetails['name']
+                      providerStore.userDetails.userDetails.name
                           .toString()
                           .substring(0, 2)
                           .toUpperCase(),
@@ -59,20 +59,21 @@ class ProfilePage extends StatelessWidget {
                     CupertinoListTile(
                       title: Text("Name"),
                       leading: Icon(Icons.lock_outline),
-                      trailing: Text(providerStore.userDetails['name']
+                      trailing: Text(providerStore.userDetails.userDetails.name
                           .toString()
                           .toUpperCase()),
                     ),
                     CupertinoListTile(
                       title: Text("Username"),
                       leading: Icon(Icons.person_outline),
-                      trailing: Text(
-                          providerStore.userDetails['username'].toString()),
+                      trailing: Text(providerStore
+                          .userDetails.userDetails.username
+                          .toString()),
                     ),
                     CupertinoListTile(
                       title: Text("Email"),
-                      trailing:
-                          Text(providerStore.userDetails['email'].toString()),
+                      trailing: Text(providerStore.userDetails.userDetails.email
+                          .toString()),
                       leading: Icon(Icons.mail_outline),
                     ),
                   ],

@@ -1,58 +1,52 @@
 import 'dart:convert';
+import 'package:fitshare/Models/user_model.dart';
+import 'package:fitshare/Pages/home_page.dart';
+import 'package:fitshare/Providers/provider_store.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:fitshare/Models/home_page_model.dart';
-import 'package:fitshare/Pages/home_page.dart';
 import 'package:fitshare/Pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
 
 class UserController {
   final storage = const FlutterSecureStorage();
   var url = "http://86.155.156.191:5000";
 
-  void handleUserLogin(String email, String password, context) async {
+  Future<void> handleUserLogin(String email, String password, context) async {
+    ProviderStore providerStore =
+        Provider.of<ProviderStore>(context, listen: false);
     try {
-      var response = await Dio().post(
-        "$url/login",
-        data: {
-          'email': email,
-          'password': password,
-        },
-        options: Options(
-          contentType: Headers.jsonContentType,
-        ),
-      );
-
+      var response = await Dio().post("http://86.155.156.191:5000/login",
+          data: {"email": email, "password": password});
       if (response.statusCode == 200) {
-        storage.write(key: 'auth_token', value: response.data['token']);
-        var userDetails = jsonEncode(response.data["user_details"]);
-        //! when you want to retrive the user decode first, after that user like this Eg: user['email]
-        storage.write(key: 'user_details', value: userDetails);
-        // Navigate to HomePage only if login is successful
+        final userEncode = json.encode(response.data);
+        final data = userModelFromJson(userEncode);
+        storage.write(key: 'auth_token', value: data.token);
+
+        //initalise the userDetails in provider
+        providerStore.handleUserDetailsfromLogin(data);
+
+        //encoding user to store in local storage
+        var encodedUser = jsonEncode(data.userDetails);
+        storage.write(key: 'user_details', value: encodedUser);
         Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => HomePage(),
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            backgroundColor: CupertinoColors.systemRed,
-            content: Text("Invalid Email or Password"),
+            content: Text("Error while logging in"),
           ),
         );
       }
-    } catch (e) {
-      // Handle Dio or network-related errors here
-      print('Error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Network error occurred"),
-        ),
-      );
+    } on Exception catch (e) {
+      print(e);
     }
   }
 

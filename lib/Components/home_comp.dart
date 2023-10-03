@@ -20,91 +20,90 @@ class HomeComp extends StatelessWidget {
         drawer: DrawerComp(),
         body: Consumer<ProviderStore>(
           builder: (context, providerStore, child) {
-            providerStore.handleUserDetails();
+            providerStore.handleUserDetailsfromStorage();
+            UserController().handleHomePage(
+              providerStore.userDetails.userDetails.username,
+              context,
+            );
             return SingleChildScrollView(
-              child: RefreshIndicator.adaptive(
-                onRefresh: () => UserController().handleHomePage(
-                  providerStore.userDetails['userName'],
-                  context,
-                ),
-                child: Column(
-                  children: [
-                    AppBar(
-                      iconTheme: IconThemeData(color: Colors.black),
-                      actions: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          //! user image should be present or initials
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => ProfilePage(),
-                              ),
-                            ),
-                            child: CircleAvatar(
-                              radius: 25,
-                              child: Text(providerStore.userDetails['name']
-                                  .toString()
-                                  .substring(0, 2)
-                                  .toUpperCase()),
+              child: Column(
+                children: [
+                  AppBar(
+                    iconTheme: IconThemeData(color: Colors.black),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        //! user image should be present or initials
+                        child: InkWell(
+                          onTap: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => ProfilePage(),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // ! this is to be changed according to the username
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: ListTile(
-                          title: Text(
-                            "Hello " + providerStore.userDetails['name'],
-                            style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          // ! this needs to change according to time
-                          subtitle: Text(
-                            providerStore.greeting,
-                            style: TextStyle(fontSize: 20),
+                          child: CircleAvatar(
+                            radius: 25,
+                            child: Text(providerStore
+                                .userDetails.userDetails.name
+                                .toString()
+                                .substring(0, 2)
+                                .toUpperCase()),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    DiscoverPeopleComp(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ListTile(
-                      title: Text("Events"),
-                      trailing: CupertinoButton(
-                        child: Text("Explore"),
-                        onPressed: () {},
+                    ],
+                  ),
+                  // ! this is to be changed according to the username
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: ListTile(
+                        title: Text(
+                          "Hello ${providerStore.userDetails.userDetails.name}",
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // ! this needs to change according to time
+                        subtitle: Text(
+                          providerStore.greeting,
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
-                    // ! Implement a listView builder with the list tile to render the events
-                    // ! Events comp
-                    EventsComp(),
-                    SizedBox(
-                      height: 20,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  DiscoverPeopleComp(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListTile(
+                    title: Text("Events"),
+                    trailing: CupertinoButton(
+                      child: Text("Explore"),
+                      onPressed: () {},
                     ),
-                    ListTile(
-                      title: Text("Todays Workout"),
-                      trailing: CupertinoButton(
-                        child: Text("View All"),
-                        onPressed: () {},
-                      ),
+                  ),
+                  // ! Implement a listView builder with the list tile to render the events
+                  // ! Events comp
+                  EventsComp(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListTile(
+                    title: Text("Todays Workout"),
+                    trailing: CupertinoButton(
+                      child: Text("View All"),
+                      onPressed: () {},
                     ),
-                    // ! listview to be rendered here max count 3
-                    TodaysWorkoutComp(),
-                  ],
-                ),
+                  ),
+                  // ! listview to be rendered here max count 3
+                  TodaysWorkoutComp(),
+                ],
               ),
             );
           },

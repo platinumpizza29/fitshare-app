@@ -1,0 +1,44 @@
+{
+  "routines": [
+    {
+      "category": "Legs",
+      "exercises": [
+        { "name": "Squats" },
+        { "name": "Lunges" },
+        { "name": "Deadlifts" },
+        { "name": "Leg Press" },
+        { "name": "Calf Raises" }
+      ]
+    },
+    {
+      "category": "Chest",
+      "exercises": [
+        { "name": "Bench Press" },
+        { "name": "Push-Ups" },
+        { "name": "Dumbbell Flyes" },
+        { "name": "Chest Dips" },
+        { "name": "Incline Press" }
+      ]
+    },
+    {
+      "category": "Back",
+      "exercises": [
+        { "name": "Pull-Ups" },
+        { "name": "Barbell Rows" },
+        { "name": "Lat Pulldowns" },
+        { "name": "Deadlifts" },
+        { "name": "T-Bar Rows" }
+      ]
+    },
+    {
+      "category": "Arms",
+      "exercises": [
+        { "name": "Bicep Curls" },
+        { "name": "Tricep Dips" },
+        { "name": "Hammer Curls" },
+        { "name": "Skull Crushers" },
+        { "name": "Tricep Kickbacks" }
+      ]
+    }
+  ]
+}
